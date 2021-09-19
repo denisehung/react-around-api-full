@@ -1,0 +1,35 @@
+{
+  "name": "around-express",
+  "version": "1.0.0",
+  "description": "around-express",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/denisehung/around-express.git"
+  },
+  "author": "Denise Hung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/denisehung/around-express/issues"
+  },
+  "homepage": "https://github.com/denisehung/around-express#readme",
+  "keywords": [],
+  "dependencies": {
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "mongoose": "^6.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.0",
+    "nodemon": "^2.0.12"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
