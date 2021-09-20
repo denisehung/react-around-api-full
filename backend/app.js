@@ -2,6 +2,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
+const { login, createUser } = require('./controllers/users');
+const auth = require('./middleware/auth');
 const cardRouter = require('./routes/cards');
 const userRouter = require('./routes/users');
 
@@ -20,6 +22,9 @@ app.use((req, res, next) => {
 
 app.use(helmet());
 app.use(express.json());
+app.post('/signin', login);
+app.post('/signup', createUser);
+app.use(auth);
 app.use('/users', userRouter);
 app.use('/cards', cardRouter);
 

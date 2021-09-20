@@ -19,9 +19,12 @@
   "homepage": "https://github.com/denisehung/around-express#readme",
   "keywords": [],
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
-    "mongoose": "^6.0.2"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.2",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
