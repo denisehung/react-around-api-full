@@ -1,14 +1,17 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const AuthorizationError = require('../errors/auth-error');
+// const BadRequestError = require('../errors/bad-request-err');
+const NotFoundError = require('../errors/not-found-err');
 
-module.exports.getUsers = (req, res) => {
+module.exports.getUsers = (req, res, next) => {
   User.find({})
     .then((users) => res.status(200).send({ data: users }))
-    .catch(() => res.status(500).send({ message: 'Internal Server Error' }));
+    .catch(next);
 };
 
-module.exports.createUser = (req, res) => {
+module.exports.createUser = (req, res, next) => {
   const {
     name,
     about,
@@ -26,68 +29,51 @@ module.exports.createUser = (req, res) => {
       password: hash,
     }))
     .then((user) => res.send({ data: user }))
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        res.status(400).send({ message: 'Invalid data: user cannot be created' });
-      } else {
-        res.status(500).send({ message: 'Internal Server Error' });
-      }
-    });
+    .catch(next);
 };
 
-module.exports.login = (req, res) => {
+module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      // we're creating a token
+      if (!user) {
+        throw new AuthorizationError('Not Authorized');
+      }
+      // Create token
       const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
 
-      // we return the token
+      // Return token
       res.send({ token });
     })
-    .catch(() => {
-      res.status(401).send({ message: 'Invalid email or password' });
-    });
+    .catch(next);
 };
 
-module.exports.getCurrentUser = (req, res) {
+module.exports.getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
-        res.status(404).send({ message: 'User does not exist' });
+        throw new NotFoundError('User does not exist');
       } else {
         res.status(200).send({ data: user });
       }
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        res.status(400).send({ message: 'Invalid user ID' });
-      } else {
-        res.status(500).send({ message: 'Internal Server Error' });
-      }
-    });
-  };
+    .catch(next);
+};
 
-module.exports.getUserById = (req, res) => {
+module.exports.getUserById = (req, res, next) => {
   User.findById(req.params.id)
     .then((user) => {
       if (!user) {
-        res.status(404).send({ message: 'User does not exist' });
+        throw new NotFoundError('User does not exist');
       } else {
         res.status(200).send({ data: user });
       }
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        res.status(400).send({ message: 'Invalid user ID' });
-      } else {
-        res.status(500).send({ message: 'Internal Server Error' });
-      }
-    });
+    .catch(next);
 };
 
-module.exports.updateUser = (req, res) => {
+module.exports.updateUser = (req, res, next) => {
   const { name, about } = req.body;
 
   User.findByIdAndUpdate(req.user._id,
@@ -95,21 +81,15 @@ module.exports.updateUser = (req, res) => {
     { runValidators: true, new: true })
     .then((user) => {
       if (!user) {
-        res.status(404).send({ message: 'User does not exist' });
+        throw new NotFoundError('User does not exist');
       } else {
         res.status(200).send({ data: user });
       }
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        res.status(400).send({ message: 'Invalid user ID' });
-      } else {
-        res.status(500).send({ message: 'Internal Server Error' });
-      }
-    });
+    .catch(next);
 };
 
-module.exports.updateAvatar = (req, res) => {
+module.exports.updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
 
   User.findByIdAndUpdate(req.user._id,
@@ -117,16 +97,10 @@ module.exports.updateAvatar = (req, res) => {
     { runValidators: true, new: true })
     .then((user) => {
       if (!user) {
-        res.status(404).send({ message: 'User does not exist' });
+        throw new NotFoundError('User does not exist');
       } else {
         res.status(200).send({ data: user });
       }
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        res.status(400).send({ message: 'Invalid user ID' });
-      } else {
-        res.status(500).send({ message: 'Internal Server Error' });
-      }
-    });
+    .catch(next);
 };

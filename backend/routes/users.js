@@ -41,6 +41,10 @@ router.get('/:id', (req, res) => {
   });
 }); */
 
+function validateUrl(string) {
+  return validator.isURL(string);
+}
+
 router.get('/', getUsers);
 router.get('/:id', getUserById);
 router.get('/me', getCurrentUser);

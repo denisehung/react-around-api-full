@@ -23,11 +23,12 @@ module.exports.createCard = (req, res) => {
 module.exports.deleteCard = (req, res) => {
   Card.findByIdAndRemove(req.params.id)
     .then((card) => {
-      if (card) {
-        res.status(200).send({ data: card });
-      } else {
+      if (!card) {
         res.status(404).send({ message: 'Card not found' });
+      } else if (card.owner._id !== req.user._id) {
+        res.status(400).send({ message: 'Invalid user ID' });
       }
+      res.status(200).send({ data: card });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
