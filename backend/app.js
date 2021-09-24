@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { celebrate, Joi } = require('celebrate');
+const { errors } = require('celebrate');
+const { requestLogger, errorLogger } = require('./middleware/logger');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middleware/auth');
 const cardRouter = require('./routes/cards');
@@ -24,6 +26,7 @@ mongoose.connect('mongodb://localhost:27017/aroundb');
 
 app.use(helmet());
 app.use(express.json());
+app.use(requestLogger);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -45,6 +48,10 @@ app.use('/cards', auth, cardRouter);
 app.get('*', () => {
   throw new NotFoundError('Requested resource not found');
 });
+
+app.use(errorLogger); // enabling the error logger
+
+app.use(errors()); // celebrate error handler
 
 app.use((err, req, res, next) => {
   // if an error has no status, display 500

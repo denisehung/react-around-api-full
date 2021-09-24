@@ -1,5 +1,6 @@
-/* eslint-disable no-console */
 const router = require('express').Router();
+const { celebrate, Joi } = require('celebrate');
+const validator = require('validator');
 const {
   getUsers,
   getUserById,
@@ -7,6 +8,7 @@ const {
   updateUser,
   updateAvatar,
 } = require('../controllers/users');
+
 // const fs = require('fs');
 // const path = require('path');
 
@@ -49,7 +51,18 @@ router.get('/', getUsers);
 router.get('/:id', getUserById);
 router.get('/me', getCurrentUser);
 // router.post('/', createUser);
-router.patch('/me', updateUser);
-router.patch('/me/avatar', updateAvatar);
+
+router.patch('/me', celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().required().min(2).max(30),
+    about: Joi.string().required().min(2).max(30),
+  }),
+}), updateUser);
+
+router.patch('/me/avatar', celebrate({
+  body: Joi.object().keys({
+    avatar: Joi.string().required().custom(validateUrl),
+  }),
+}), updateAvatar);
 
 module.exports = router;

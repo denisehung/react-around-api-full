@@ -1,0 +1,18 @@
+.card__heart-icon {
+  /* prevents highlight around icon when button is touched on mobile */
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  width: 21px;
+  height: 19px;
+  border: 0;
+  margin-bottom: 3px;
+  outline: none;
+  background-color: transparent;
+  background-image: url(../../../images/heart-icon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.card__heart-icon_active {
+  background-image: url(../../../images/heart-icon-active.svg);
+}

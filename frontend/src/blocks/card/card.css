@@ -1,0 +1,16 @@
+@import url(./__delete-button/card__delete-button.css);
+@import url(./__delete-button/_hidden/card__delete-button_hidden.css);
+@import url(./__delete-button/_visible/card__delete-button_visible.css);
+@import url(./__image/card__image.css);
+@import url(./__textblock/card__textblock.css);
+@import url(./__title/card__title.css);
+@import url(./__heart-icon/card__heart-icon.css);
+@import url(./__heart-icon/_active/card__heart-icon_active.css);
+@import url(./card__likes-container/card__likes-container.css);
+@import url(./__likes-counter/card__likes-counter.css);
+
+.card {
+  border-radius: 10px;
+  background-color: white;
+  position: relative;
+}

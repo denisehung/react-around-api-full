@@ -1,45 +1,35 @@
 const Card = require('../models/card');
+const NotFoundError = require('../errors/not-found-err');
+const AuthorizationError = require('../errors/auth-error');
 
-module.exports.getCards = (req, res) => {
+module.exports.getCards = (req, res, next) => {
   Card.find({})
     .then((cards) => res.status(200).send({ data: cards }))
-    .catch(() => res.status(500).send({ message: 'Internal Server Error' }));
+    .catch(next);
 };
 
-module.exports.createCard = (req, res) => {
+module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
 
   Card.create({ name, link, owner: req.user._id })
-    .then((card) => res.send({ data: card }))
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        res.status(400).send({ message: 'Invalid data: card cannot be created' });
-      } else {
-        res.status(500).send({ message: 'Internal Server Error' });
-      }
-    });
+    .then((card) => res.status(200).send({ data: card }))
+    .catch(next);
 };
 
-module.exports.deleteCard = (req, res) => {
+module.exports.deleteCard = (req, res, next) => {
   Card.findByIdAndRemove(req.params.id)
     .then((card) => {
       if (!card) {
-        res.status(404).send({ message: 'Card not found' });
+        throw new NotFoundError('Card not found');
       } else if (card.owner._id !== req.user._id) {
-        res.status(400).send({ message: 'Invalid user ID' });
+        throw new AuthorizationError('Not authorized');
       }
       res.status(200).send({ data: card });
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        res.status(400).send({ message: 'Invalid card ID' });
-      } else {
-        res.status(500).send({ message: 'Internal Server Error' });
-      }
-    });
+    .catch(next);
 };
 
-module.exports.likeCard = (req, res) => {
+module.exports.likeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } }, // add _id to the array if it's not there yet
@@ -49,19 +39,13 @@ module.exports.likeCard = (req, res) => {
       if (card) {
         res.status(200).send({ data: card });
       } else {
-        res.status(404).send({ message: 'Card not found' });
+        throw new NotFoundError('Card not found');
       }
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        res.status(400).send({ message: 'Invalid card ID' });
-      } else {
-        res.status(500).send({ message: 'Internal Server Error' });
-      }
-    });
+    .catch(next);
 };
 
-module.exports.dislikeCard = (req, res) => {
+module.exports.dislikeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } }, // remove _id from the array
@@ -71,14 +55,8 @@ module.exports.dislikeCard = (req, res) => {
       if (card) {
         res.status(200).send({ data: card });
       } else {
-        res.status(404).send({ message: 'Card not found' });
+        throw new NotFoundError('Card not found');
       }
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        res.status(400).send({ message: 'Invalid card ID' });
-      } else {
-        res.status(500).send({ message: 'Internal Server Error' });
-      }
-    });
+    .catch(next);
 };

@@ -1,0 +1,17 @@
+.form__input {
+  margin-bottom: 30px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding-top: 13px;
+  padding-bottom: 13px;
+}
+
+.form__input:last-of-type {
+  margin-bottom: 216px;
+}
+
+::placeholder {
+  color: #ccc;
+}

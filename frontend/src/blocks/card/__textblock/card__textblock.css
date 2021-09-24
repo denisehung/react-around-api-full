@@ -1,0 +1,8 @@
+.card__textblock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding-left: 10%;
+  padding-right: 10%;
+}

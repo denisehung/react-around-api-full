@@ -1,0 +1,13 @@
+.popup__form {
+  width: calc(430px - 72px);
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 34px 36px 36px 36px;
+}
+
+@media screen and (max-width: 610px) {
+  .popup__form {
+    width: calc(282px - 38px);
+    padding: 25px 22px;
+  }
+}

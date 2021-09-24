@@ -1,0 +1,9 @@
+.profile__name-wrapper {
+  display: flex;
+}
+
+@media screen and (max-width: 900px) {
+  .profile__name-wrapper {
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,20 @@
+.profile__image-overlay {
+    position: absolute;
+    background-image: url("../../../images/edit-pencil-icon.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 26px;
+    background-color:rgba(0, 0, 0, 0.8);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity .2s linear;
+    cursor: pointer;
+}
+
+.profile__image-overlay:hover {
+    opacity: 1;
+}
