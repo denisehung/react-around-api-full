@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { celebrate, Joi } = require('celebrate');
 const { errors } = require('celebrate');
+const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middleware/auth');
@@ -27,6 +28,8 @@ mongoose.connect('mongodb://localhost:27017/aroundb');
 app.use(helmet());
 app.use(express.json());
 app.use(requestLogger);
+app.use(cors());
+app.options('*', cors()); // enable requests for all routes
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
