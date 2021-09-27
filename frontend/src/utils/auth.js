@@ -1,4 +1,5 @@
 export const BASE_URL = 'https://register.nomoreparties.co';
+// export const BASE_URL = 'https://api.dhung.students.nomoreparties.site';
 
 function checkResponse(res){
   if (res.ok) {

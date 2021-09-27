@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 // eslint-disable-next-line consistent-return
-module.exports = (req, res, next) => {
+const auth = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
@@ -14,7 +16,10 @@ module.exports = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, 'some-secret-key');
+    payload = jwt.verify(
+      token,
+      NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
+    );
   } catch (err) {
     return res
       .status(401)
@@ -24,3 +29,5 @@ module.exports = (req, res, next) => {
   req.user = payload;
   next(); // sending the request to the next middleware
 };
+
+module.exports = auth;

@@ -4,6 +4,8 @@ const User = require('../models/user');
 const AuthorizationError = require('../errors/auth-error');
 const NotFoundError = require('../errors/not-found-err');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 module.exports.getUsers = (req, res, next) => {
   User.find({})
     .then((users) => res.status(200).send({ data: users }))
@@ -40,7 +42,11 @@ module.exports.login = (req, res, next) => {
         throw new AuthorizationError('Not Authorized');
       }
       // Create token
-      const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
+      const token = jwt.sign(
+        { _id: user._id },
+        NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
+        { expiresIn: '7d' },
+      );
 
       // Return token
       res.send({ token });
