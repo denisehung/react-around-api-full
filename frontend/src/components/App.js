@@ -49,7 +49,7 @@ function App() {
   React.useEffect(() => {
     api.getUserInfo().then((res) => {
       setCurrentUser(res);
-      console.log('DATA',res);
+      // console.log('DATA',res);
     })
     .catch((err) => {
       console.log(err);
@@ -59,7 +59,7 @@ function App() {
   React.useEffect(() => {
     api.getInitialCards().then((res) => {
       setCards(res)
-      console.log('CARDS', res)
+      // console.log('CARDS', res)
     })
     .catch((err) => {
       console.log(err);
