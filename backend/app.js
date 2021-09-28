@@ -7,7 +7,7 @@ const { errors } = require('celebrate');
 const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const { login, createUser } = require('./controllers/users');
-const auth = require('./middleware/auth');
+// const auth = require('./middleware/auth');
 const cardRouter = require('./routes/cards');
 const userRouter = require('./routes/users');
 const NotFoundError = require('./errors/not-found-err');
@@ -39,8 +39,8 @@ app.post('/signup', celebrate({
   }),
 }), createUser);
 
-app.use('/users', auth, userRouter);
-app.use('/cards', auth, cardRouter);
+app.use('/users', userRouter);
+app.use('/cards', cardRouter);
 
 app.get('*', () => {
   throw new NotFoundError('Requested resource not found');
@@ -52,13 +52,7 @@ app.use(errors()); // celebrate error handler
 
 app.use((err, req, res, next) => {
   // if an error has no status, display 500
-  const { statusCode = 500, message } = err;
-  res.status(statusCode).send({
-    // check the status and display a message based on it
-    message: statusCode === 500
-      ? 'An error occurred on the server'
-      : message,
-  });
+  res.status(err.statusCode).send({ message: (err.statusCode === 500) ? 'Error from server' : err.message });
   next();
 });
 
