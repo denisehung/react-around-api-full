@@ -17,8 +17,8 @@ const {
   });
 }); */
 
-function validateUrl(string) {
-  return validator.isURL(string);
+function validateUrl(value) {
+  return validator.isURL(value);
 }
 
 router.get('/', getCards);
@@ -33,19 +33,19 @@ router.post('/',
 
 router.delete('/:id', celebrate({
   params: Joi.object().keys({
-    _id: Joi.string().hex().length(24),
+    _id: Joi.string().alphanum().length(24),
   }),
 }), deleteCard);
 
 router.put('/:id/likes', celebrate({
   params: Joi.object().keys({
-    _id: Joi.string().hex().length(24),
+    _id: Joi.string().alphanum().length(24),
   }),
 }), likeCard);
 
 router.delete('/:id/likes', celebrate({
   params: Joi.object().keys({
-    _id: Joi.string().hex().length(24),
+    _id: Joi.string().alphanum().length(24),
   }),
 }), dislikeCard);
 
