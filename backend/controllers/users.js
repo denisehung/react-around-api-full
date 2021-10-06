@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
@@ -60,10 +61,11 @@ module.exports.getCurrentUser = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('User does not exist');
       } else {
-        res.status(200).send({ data: user });
+        // eslint-disable-next-line no-underscore-dangle
+        return res.status(200).send(user);
       }
     })
-    .catch(next);
+    .catch(console.log(req), next);
 };
 
 module.exports.getUserById = (req, res, next) => {

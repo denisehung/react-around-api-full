@@ -6,13 +6,17 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 const auth = (req, res, next) => {
   const { authorization } = req.headers;
 
+  // Check if header exists and starts with Bearer
   if (!authorization || !authorization.startsWith('Bearer ')) {
     return res
       .status(403)
       .send({ message: 'Authorization Required' });
   }
 
+  // Get token
   const token = authorization.replace('Bearer ', '');
+
+  // Verify token
   let payload;
 
   try {

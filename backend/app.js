@@ -7,7 +7,7 @@ const { errors } = require('celebrate');
 const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const { login, createUser } = require('./controllers/users');
-// const auth = require('./middleware/auth');
+const auth = require('./middleware/auth');
 const cardRouter = require('./routes/cards');
 const userRouter = require('./routes/users');
 const NotFoundError = require('./errors/not-found-err');
@@ -19,11 +19,17 @@ const app = express();
 
 mongoose.connect('mongodb://localhost:27017/aroundb');
 
+app.use(cors());
+app.options('*', cors()); // enable requests for all routes
 app.use(helmet());
 app.use(express.json());
 app.use(requestLogger);
-app.use(cors());
-app.options('*', cors()); // enable requests for all routes
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Server will crash now');
+  }, 0);
+});
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -39,6 +45,7 @@ app.post('/signup', celebrate({
   }),
 }), createUser);
 
+app.use(auth);
 app.use('/users', userRouter);
 app.use('/cards', cardRouter);
 
@@ -52,7 +59,7 @@ app.use(errors()); // celebrate error handler
 
 app.use((err, req, res, next) => {
   // if an error has no status, display 500
-  res.status(err.statusCode).send({ message: (err.statusCode === 500) ? 'Error from server' : err.message });
+  res.status(err.statusCode).send({ message: (err.statusCode === 500) ? 'Server error' : err.message });
   next();
 });
 
