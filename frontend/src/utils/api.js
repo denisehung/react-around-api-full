@@ -14,9 +14,9 @@ class Api {
   getInitialCards(token) {
     return fetch(this._baseUrl + '/cards', {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
+      }
     })
     .then((res) => { 
       return this._checkResponse(res);      
@@ -26,9 +26,9 @@ class Api {
   getUserInfo(token) {
     return fetch(this._baseUrl + '/users/me', {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
+      }
     })
     .then((res) => { 
       return this._checkResponse(res);      
@@ -38,8 +38,8 @@ class Api {
   setUserInfo({ name, about }, token) {
     return fetch(this._baseUrl + '/users/me', {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
       },
       method: "PATCH",
       body: JSON.stringify({
@@ -56,8 +56,8 @@ class Api {
   addCard({ name, link }, token) {
     return fetch(this._baseUrl + '/cards', {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
       },
       method: "POST",
       body: JSON.stringify({
@@ -73,8 +73,8 @@ class Api {
   removeCard(cardId, token) {
     return fetch(this._baseUrl + '/cards/' + cardId, {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
       },
       method: "DELETE"
     })
@@ -86,8 +86,8 @@ class Api {
   addLike(cardId, token) {
     return fetch(this._baseUrl + '/cards/likes/' + cardId, {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
       },
       method: "PUT"
     })
@@ -99,8 +99,8 @@ class Api {
   removeLike(cardId, token) {
     return fetch(this._baseUrl + '/cards/likes/' + cardId, {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
       },
       method: "DELETE"
     })
@@ -112,8 +112,8 @@ class Api {
   setUserAvatar({ avatar }, token) {
     return fetch(this._baseUrl + '/users/me/avatar', {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
       },
       method: "PATCH",
       body: JSON.stringify({

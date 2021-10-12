@@ -59,7 +59,7 @@ function App() {
       .catch((err) => console.log(err));
     }
   }, [history, token]);
-  
+
   // Get current user info
   useEffect(() => {
       api.getUserInfo(token).then((res) => {
@@ -142,9 +142,9 @@ function App() {
     });
   }
 
-  function handleUpdateUser(userData){
+  function handleUpdateUser({ name, about }){
     setIsLoading(true);
-    api.setUserInfo(userData, token)
+    api.setUserInfo({ name, about }, token)
     .then((res) => {
       setCurrentUser(res);
       closeAllPopups();
@@ -168,9 +168,9 @@ function App() {
     });
   }
 
-  function handleAddPlaceSubmit({ title, link }){
+  function handleAddPlaceSubmit({ name, link }){
     setIsLoading(true);
-    api.addCard({ title, link }, token)
+    api.addCard({ name, link }, token)
     .then((newCard) => {
       setCards([newCard, ...cards]);
       closeAllPopups();
