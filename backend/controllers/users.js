@@ -13,7 +13,7 @@ module.exports.getUsers = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.createUser = (req, res, next) => {
+module.exports.createUser = (req, res) => {
   const {
     name,
     about,
@@ -30,8 +30,7 @@ module.exports.createUser = (req, res, next) => {
       email,
       password: hash,
     }))
-    .then((user) => res.send({ data: user }))
-    .catch(next);
+    .then((user) => res.send({ data: user.toJSON() }));
 };
 
 module.exports.login = (req, res, next) => {
@@ -62,7 +61,7 @@ module.exports.getCurrentUser = (req, res, next) => {
         throw new NotFoundError('User does not exist');
       } else {
         // eslint-disable-next-line no-underscore-dangle
-        return res.status(200).send(user);
+        return res.status(200).send({ user });
       }
     })
     .catch(console.log(req), next);

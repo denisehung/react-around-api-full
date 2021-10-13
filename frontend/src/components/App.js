@@ -67,7 +67,7 @@ function App() {
         console.log('DATA',res);
       })
       .catch((err) => console.log(err));
-  }, [token]);
+  }, [currentUser._id, token]);
 
   // Load cards from database
   useEffect(() => {

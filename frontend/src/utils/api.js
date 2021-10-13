@@ -127,7 +127,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://api.dhung.students.nomoreparties.site",
+  baseUrl: (process.env.NODE_ENV === "production" ? "https://api.dhung.students.nomoreparties.site" : "http://localhost:3000")
 });
 
 export default api;

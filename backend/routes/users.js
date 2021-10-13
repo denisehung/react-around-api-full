@@ -18,7 +18,7 @@ function validateUrl(string) {
 }
 
 router.get('/', getUsers);
-router.get('/:id', getUserById);
+
 router.get('/me', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
@@ -37,5 +37,7 @@ router.patch('/me/avatar', celebrate({
     avatar: Joi.string().required().custom(validateUrl),
   }),
 }), updateAvatar);
+
+router.get('/:id', getUserById);
 
 module.exports = router;
