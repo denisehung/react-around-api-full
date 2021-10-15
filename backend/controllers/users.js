@@ -30,7 +30,10 @@ module.exports.createUser = (req, res) => {
       email,
       password: hash,
     }))
-    .then((user) => res.send({ data: user.toJSON() }));
+    .then((user) => res.send({
+      _id: user._id,
+      email: user.email,
+    }));
 };
 
 module.exports.login = (req, res, next) => {

@@ -25,6 +25,8 @@ router.get('/me', celebrate({
   }),
 }), getCurrentUser);
 
+router.get('/:id', getUserById);
+
 router.patch('/me', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
@@ -37,7 +39,5 @@ router.patch('/me/avatar', celebrate({
     avatar: Joi.string().required().custom(validateUrl),
   }),
 }), updateAvatar);
-
-router.get('/:id', getUserById);
 
 module.exports = router;

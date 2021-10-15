@@ -17,8 +17,11 @@ const {
   });
 }); */
 
-function validateUrl(value) {
-  return validator.isURL(value);
+function validateUrl(string) {
+  if (!validator.isURL(string)) {
+    throw new Error('Invalid URL');
+  }
+  return string;
 }
 
 router.get('/', getCards);
@@ -31,12 +34,6 @@ router.post('/',
     }),
   }), createCard);
 
-router.delete('/:id', celebrate({
-  params: Joi.object().keys({
-    _id: Joi.string().alphanum().length(24),
-  }),
-}), deleteCard);
-
 router.put('/:id/likes', celebrate({
   params: Joi.object().keys({
     _id: Joi.string().alphanum().length(24),
@@ -48,5 +45,11 @@ router.delete('/:id/likes', celebrate({
     _id: Joi.string().alphanum().length(24),
   }),
 }), dislikeCard);
+
+router.delete('/:id', /* celebrate({
+  params: Joi.object().keys({
+    _id: Joi.string().alphanum().length(24),
+  }),
+}), */ deleteCard);
 
 module.exports = router;

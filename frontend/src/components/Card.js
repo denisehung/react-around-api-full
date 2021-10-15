@@ -5,7 +5,7 @@ function Card(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
   // Checking if the current user is the owner of the current card
-  const isOwn = props.card.owner._id === currentUser._id;
+  const isOwn = props.card.owner === currentUser?._id;
 
   // Creating a variable which you'll then set in `className` for the delete button
   const cardDeleteButtonClassName = (
@@ -13,7 +13,7 @@ function Card(props) {
   ); 
 
   // Check if the card was liked by the current user
-  const isLiked = props.card.likes.some(i => i._id === currentUser._id);
+  const isLiked = props.card.likes?.some(i => i === currentUser?._id);
 
   // Create a variable which you then set in `className` for the like button
   const cardLikeButtonClassName = (
@@ -40,7 +40,7 @@ function Card(props) {
         <h2 className="card__title">{props.card.name}</h2>
         <div className="card__likes-container">
           <button className={cardLikeButtonClassName} onClick={handleLike}></button>
-          <p className="card__likes-counter">{props.card.likes.length}</p>
+          <p className="card__likes-counter">{props.card.likes?.length}</p>
         </div>
       </div>
     </div>

@@ -53,7 +53,7 @@ function App() {
     if (token) {
       auth.checkToken(token).then((res) => {
         setLoggedIn(true);
-        setEmail(res.data.email);
+        setEmail(res.user.email);
         history.push("/");   
       })
       .catch((err) => console.log(err));
@@ -64,16 +64,16 @@ function App() {
   useEffect(() => {
       api.getUserInfo(token).then((res) => {
         setCurrentUser(res.user);
-        console.log('DATA',res);
+        console.log('USER',res.user);
       })
       .catch((err) => console.log(err));
-  }, [currentUser._id, token]);
+  }, [token]);
 
   // Load cards from database
   useEffect(() => {
       api.getInitialCards(token).then((res) => {
         setCards(res.data);
-        console.log('CARDS',res);
+        console.log('CARDS',res.data[0].owner);
       })
       .catch(err => console.log(err))
   }, [token]);
@@ -146,7 +146,7 @@ function App() {
     setIsLoading(true);
     api.setUserInfo({ name, about }, token)
     .then((res) => {
-      setCurrentUser(res);
+      setCurrentUser(res.data);
       closeAllPopups();
     })
     .catch((err) => {console.log(err)})
@@ -155,11 +155,11 @@ function App() {
     });
   }
 
-  function handleUpdateAvatar(avatar){
+  function handleUpdateAvatar({avatar}){
     setIsLoading(true);
     api.setUserAvatar(avatar, token)
     .then((res) => {
-      setCurrentUser(res);
+      setCurrentUser(res.data);
       closeAllPopups();
     })
     .catch((err) => {console.log(err)})
@@ -172,7 +172,7 @@ function App() {
     setIsLoading(true);
     api.addCard({ name, link }, token)
     .then((newCard) => {
-      setCards([newCard, ...cards]);
+      setCards([newCard.data, ...cards]);
       closeAllPopups();
     })
     .catch((err) => {console.log(err)})

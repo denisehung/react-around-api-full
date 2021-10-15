@@ -17,11 +17,11 @@ module.exports.createCard = (req, res, next) => {
 };
 
 module.exports.deleteCard = (req, res, next) => {
-  Card.findByIdAndRemove(req.params.id)
+  Card.findByIdAndRemove(req.params.cardId)
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Card not found');
-      } else if (card.owner._id !== req.user._id) {
+      } else if (card.owner !== req.user._id) {
         throw new AuthorizationError('Not authorized');
       }
       res.status(200).send({ data: card });

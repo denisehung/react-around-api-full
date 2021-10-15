@@ -19,10 +19,8 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     validate: {
-      validator(v) {
-        return RegExp(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/).test(v);
-      },
-      message: 'Invalid Image URL',
+      validator: (v) => validator.isURL(v),
+      message: 'This image link is invalid',
     },
     default: 'https://pictures.s3.yandex.net/resources/avatar_1604080799.jpg',
   },
@@ -31,7 +29,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
     validator: (v) => validator.isEmail(v),
-    message: 'Please enter a valid URL',
+    message: 'Please enter a valid email',
   },
   password: {
     type: String,
