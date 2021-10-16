@@ -17,11 +17,12 @@ module.exports.createCard = (req, res, next) => {
 };
 
 module.exports.deleteCard = (req, res, next) => {
-  Card.findByIdAndRemove(req.params.cardId)
+  Card.findByIdAndRemove(req.params.id)
     .then((card) => {
+      const ownerId = card.owner.toString();
       if (!card) {
         throw new NotFoundError('Card not found');
-      } else if (card.owner !== req.user._id) {
+      } else if (ownerId !== req.user._id) {
         throw new AuthorizationError('Not authorized');
       }
       res.status(200).send({ data: card });
@@ -31,13 +32,13 @@ module.exports.deleteCard = (req, res, next) => {
 
 module.exports.likeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
-    req.params.cardId,
+    req.params.id,
     { $addToSet: { likes: req.user._id } }, // add _id to the array if it's not there yet
     { new: true },
   )
     .then((card) => {
       if (card) {
-        res.status(200).send({ data: card });
+        res.status(200).send(card);
       } else {
         throw new NotFoundError('Card not found');
       }
@@ -47,13 +48,13 @@ module.exports.likeCard = (req, res, next) => {
 
 module.exports.dislikeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
-    req.params.cardId,
+    req.params.id,
     { $pull: { likes: req.user._id } }, // remove _id from the array
     { new: true },
   )
     .then((card) => {
       if (card) {
-        res.status(200).send({ data: card });
+        res.status(200).send(card);
       } else {
         throw new NotFoundError('Card not found');
       }

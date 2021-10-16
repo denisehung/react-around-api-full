@@ -62,7 +62,15 @@ app.use(errors()); // celebrate error handler
 
 app.use((err, req, res, next) => {
   // if an error has no status, display 500
-  res.status(err.statusCode).send({ message: (err.statusCode === 500) ? 'Server error' : err.message });
+  const { statusCode = 500, message } = err;
+  res
+    .status(statusCode)
+    .send({
+      // check the status and display a message based on it
+      message: statusCode === 500
+        ? 'An error occurred on the server'
+        : message,
+    });
   next();
 });
 

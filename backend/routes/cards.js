@@ -5,18 +5,6 @@ const {
   getCards, createCard, deleteCard, likeCard, dislikeCard,
 } = require('../controllers/cards');
 
-/* router.get('/', (req, res) => {
-  const dataPath = path.join(__dirname, '../data/cards.json');
-  fs.readFile(dataPath, { encoding: 'utf8' }, (err, data) => {
-    if (err) {
-      res.status(500).send({ message: 'Internal server error' });
-      return;
-    }
-    const cards = JSON.parse(data);
-    res.send(cards);
-  });
-}); */
-
 function validateUrl(string) {
   if (!validator.isURL(string)) {
     throw new Error('Invalid URL');
@@ -34,22 +22,10 @@ router.post('/',
     }),
   }), createCard);
 
-router.put('/:id/likes', celebrate({
-  params: Joi.object().keys({
-    _id: Joi.string().alphanum().length(24),
-  }),
-}), likeCard);
+router.put('/likes/:id', likeCard);
 
-router.delete('/:id/likes', celebrate({
-  params: Joi.object().keys({
-    _id: Joi.string().alphanum().length(24),
-  }),
-}), dislikeCard);
+router.delete('/likes/:id', dislikeCard);
 
-router.delete('/:id', /* celebrate({
-  params: Joi.object().keys({
-    _id: Joi.string().alphanum().length(24),
-  }),
-}), */ deleteCard);
+router.delete('/:id', deleteCard);
 
 module.exports = router;
