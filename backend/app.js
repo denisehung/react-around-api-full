@@ -11,6 +11,7 @@ const auth = require('./middleware/auth');
 const cardRouter = require('./routes/cards');
 const userRouter = require('./routes/users');
 const NotFoundError = require('./errors/not-found-err');
+const validateUrl = require('./utils/validateUrl');
 require('dotenv').config();
 
 // listen to port 3000
@@ -42,7 +43,7 @@ app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
-    avatar: Joi.string(),
+    avatar: Joi.string().custom(validateUrl),
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),

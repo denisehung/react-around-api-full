@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
-const validator = require('validator');
+const validateUrl = require('../utils/validateUrl');
 
 const {
   getUsers,
@@ -9,13 +9,6 @@ const {
   updateUser,
   updateAvatar,
 } = require('../controllers/users');
-
-function validateUrl(string) {
-  if (!validator.isURL(string)) {
-    throw new Error('Invalid URL');
-  }
-  return string;
-}
 
 router.get('/', getUsers);
 
