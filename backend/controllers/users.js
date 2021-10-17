@@ -42,7 +42,13 @@ module.exports.createUser = (req, res, next) => {
           email: user.email,
         }));
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'MongoError' && err.code === 11000) {
+        throw new ConflictError('User already exists');
+      } else {
+        next(err);
+      }
+    });
 };
 
 module.exports.login = (req, res, next) => {
