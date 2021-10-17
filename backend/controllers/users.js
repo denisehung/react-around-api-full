@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const AuthorizationError = require('../errors/auth-error');
 const NotFoundError = require('../errors/not-found-err');
+const ConflictError = require('../errors/conflict-error');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -13,7 +14,7 @@ module.exports.getUsers = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.createUser = (req, res) => {
+module.exports.createUser = (req, res, next) => {
   const {
     name,
     about,
@@ -22,18 +23,26 @@ module.exports.createUser = (req, res) => {
     password,
   } = req.body;
 
-  bcrypt.hash(password, 10)
-    .then((hash) => User.create({
-      name,
-      about,
-      avatar,
-      email,
-      password: hash,
-    }))
-    .then((user) => res.send({
-      _id: user._id,
-      email: user.email,
-    }));
+  User.findOne({ email })
+    .then((userExists) => {
+      if (userExists) {
+        throw new ConflictError('User already exists, try signing up with another email');
+      }
+
+      bcrypt.hash(password, 10)
+        .then((hash) => User.create({
+          name,
+          about,
+          avatar,
+          email,
+          password: hash,
+        }))
+        .then((user) => res.send({
+          _id: user._id,
+          email: user.email,
+        }));
+    })
+    .catch(next);
 };
 
 module.exports.login = (req, res, next) => {
