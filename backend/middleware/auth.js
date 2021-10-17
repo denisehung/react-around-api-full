@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const AuthorizationError = require('../errors/auth-error');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -8,9 +9,7 @@ const auth = (req, res, next) => {
 
   // Check if header exists and starts with Bearer
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    return res
-      .status(403)
-      .send({ message: 'Authorization Required' });
+    throw new AuthorizationError('Authorization required');
   }
 
   // Get token
@@ -25,11 +24,8 @@ const auth = (req, res, next) => {
       NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
     );
   } catch (err) {
-    return res
-      .status(401)
-      .send({ message: 'Authorization Required' });
+    throw new AuthorizationError('Not authorized');
   }
-
   req.user = payload;
   next(); // sending the request to the next middleware
 };
