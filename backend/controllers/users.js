@@ -78,7 +78,6 @@ module.exports.getCurrentUser = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('User does not exist');
       } else {
-        // eslint-disable-next-line no-underscore-dangle
         return res.status(200).send({ user });
       }
     })
