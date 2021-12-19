@@ -3,7 +3,7 @@ const NotFoundError = require('../errors/not-found-err');
 const AuthorizationError = require('../errors/auth-error');
 
 module.exports.getCards = (req, res, next) => {
-  Card.find({})
+  Card.find({}).sort({ createdAt: -1 })
     .then((cards) => res.status(200).send({ data: cards }))
     .catch(next);
 };
