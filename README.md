@@ -1,8 +1,8 @@
-# Web Project 4 - Around The U.S.
+# Around The U.S.
 
 ## Intro
 
-This project is part of the Practicum Web Development bootcamp (sprint 11 to 15). It's an interactive React application called 'Around The U.S.' where users can add, remove and like image cards. The frontend is connected to a self-built API that handles these functionalities, as well as user registration and authorization.
+This project is part of the Practicum Web Development bootcamp (sprint 12 to 15). It's an interactive React application called 'Around The U.S.' where users can add, remove and like image cards. The frontend is connected to a self-built API that handles these functionalities, as well as user registration and authorization.
 
 The page is hosted on **Google Cloud**.
 
