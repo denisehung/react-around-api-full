@@ -28,3 +28,20 @@ The project is created with:
 * Node.js
 * MongoDB
 * Express
+
+## Screenshots
+**Login and register screen**
+
+![Image](frontend/src/images/login-screen.png)
+
+**Main page with image gallery**
+
+![Image](frontend/src/images/gallery.png)
+
+**Popup form to add image**
+
+![Image](frontend/src/images/popup-form.png)
+
+**Image popup**
+
+![Image](frontend/src/images/image-popup.png)
