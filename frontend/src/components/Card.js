@@ -4,18 +4,18 @@ import CurrentUserContext from '../contexts/CurrentUserContext.js';
 function Card(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
-  // Checking if the current user is the owner of the current card
+  // Check if current user is owner of current card
   const isOwn = props.card.owner === currentUser?._id;
 
-  // Creating a variable which you'll then set in `className` for the delete button
+  // Only display delete button if current user is owner of card
   const cardDeleteButtonClassName = (
     `card__delete-button ${isOwn ? 'card__delete-button_visible' : 'card__delete-button_hidden'}`
-  ); 
+  );
 
-  // Check if the card was liked by the current user
+  // Check if card was liked by current user
   const isLiked = props.card.likes?.some(i => i === currentUser?._id);
 
-  // Create a variable which you then set in `className` for the like button
+  // If card is liked, display active heart icon
   const cardLikeButtonClassName = (
     `card__heart-icon ${isLiked ? 'card__heart-icon_active' : ''}`
   )
