@@ -3,3 +3,7 @@
   font-size: 14px;
   text-decoration: none;
 }
+
+.form__link:hover {
+  opacity: 0.8;
+}

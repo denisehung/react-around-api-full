@@ -225,9 +225,9 @@ function App() {
     }
 
   function onLogout() {
+    localStorage.removeItem('jwt');
     setLoggedIn(false);
     setEmail('');
-    localStorage.removeItem('jwt');
     history.push('/login');
   }
 
