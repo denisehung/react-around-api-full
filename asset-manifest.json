@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/react-around-api-full/static/css/main.8b512052.chunk.css",
+    "main.js": "/react-around-api-full/static/js/main.20d0682c.chunk.js",
+    "main.js.map": "/react-around-api-full/static/js/main.20d0682c.chunk.js.map",
+    "runtime-main.js": "/react-around-api-full/static/js/runtime-main.8afe5693.js",
+    "runtime-main.js.map": "/react-around-api-full/static/js/runtime-main.8afe5693.js.map",
+    "static/js/2.0ee0833a.chunk.js": "/react-around-api-full/static/js/2.0ee0833a.chunk.js",
+    "static/js/2.0ee0833a.chunk.js.map": "/react-around-api-full/static/js/2.0ee0833a.chunk.js.map",
+    "static/js/3.f1222d83.chunk.js": "/react-around-api-full/static/js/3.f1222d83.chunk.js",
+    "static/js/3.f1222d83.chunk.js.map": "/react-around-api-full/static/js/3.f1222d83.chunk.js.map",
+    "index.html": "/react-around-api-full/index.html",
+    "static/css/main.8b512052.chunk.css.map": "/react-around-api-full/static/css/main.8b512052.chunk.css.map",
+    "static/js/2.0ee0833a.chunk.js.LICENSE.txt": "/react-around-api-full/static/js/2.0ee0833a.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/react-around-api-full/static/media/trash-icon.8cb59aa9.svg",
+    "static/media/failure-icon.df8eddf6.svg": "/react-around-api-full/static/media/failure-icon.df8eddf6.svg",
+    "static/media/logo.4e8e0a1d.svg": "/react-around-api-full/static/media/logo.4e8e0a1d.svg",
+    "static/media/success-icon.1b6082f8.svg": "/react-around-api-full/static/media/success-icon.1b6082f8.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8afe5693.js",
+    "static/js/2.0ee0833a.chunk.js",
+    "static/css/main.8b512052.chunk.css",
+    "static/js/main.20d0682c.chunk.js"
+  ]
+}
