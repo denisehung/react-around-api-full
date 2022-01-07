@@ -224,11 +224,12 @@ function App() {
       .catch((err) => {console.log(err)})
     }
 
-  function onLogout() {
+  function handleLogout() {
     localStorage.removeItem('jwt');
     setLoggedIn(false);
     setEmail('');
-    history.push('/login');
+    history.push('/signin');
+    console.log("Logged out!")
   }
 
   return (
@@ -239,11 +240,11 @@ function App() {
         <Header 
           linkText="Log out" 
           link="/signin"
-          onClick={onLogout}
+          handleLogout={handleLogout}
           loggedIn={loggedIn}
           email={email} />
         <Main 
-          onLogout={onLogout}
+          handleLogout={handleLogout}
           component={Main}
           onCardClick={handleCardClick}
           onEditProfileClick={handleEditProfileClick}

@@ -8,7 +8,7 @@ function Header(props) {
       <img src={logo}  className="logo" alt="logo" />
       <div className="header__links">
         {props.loggedIn && <p className="header__email">{props.email}</p>}
-        <Link className="header__link" to={props.link} style={ props.loggedIn ? { color: '#A9A9A9'} : {}}>{props.linkText}</Link>
+        <Link className="header__link" to={props.link} onClick={props.handleLogout} style={ props.loggedIn ? { color: '#A9A9A9'} : {}}>{props.linkText}</Link>
       </div>
     </header>
   );
