@@ -18,7 +18,9 @@ require('dotenv').config();
 const { PORT = 3000 } = process.env;
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/aroundb');
+// mongoose.connect('mongodb://localhost:27017/aroundb');
+
+mongoose.connect('MONGO_URL');
 
 app.use(cors());
 app.options('*', cors()); // enable requests for all routes
