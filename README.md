@@ -6,7 +6,7 @@ This project is part of the Practicum Web Development bootcamp (sprint 12 to 15)
 
 The page is hosted on **Google Cloud**.
 
-## [**View live project**](https://dhung.students.nomoreparties.site/) :rocket:
+## [**View live project**](https://denisehung.github.io/react-around-api-full/) :rocket:
 
 ## Project description
 * Users can create an account and post their images on the page, which functions as a photo wall shared with other users.

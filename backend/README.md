@@ -3,6 +3,6 @@ The API of "Around the U.S." with authorization and registration handled by the 
 
 This repository contains the full API of "Around the U.S." project that features user authorization and user registration and handles cards and users.
 * Link to the complete React application which uses this API:  
-[https://dhung.students.nomoreparties.site](https://dhung.students.nomoreparties.site)
+[https://denisehung.github.io/react-around-api-full](https://denisehung.github.io/react-around-api-full)
 * Link to the website that hosts this API:  
-[https://api.dhung.students.nomoreparties.site](https://api.dhung.students.nomoreparties.site)
+[https://react-around-server.herokuapp.com](https://react-around-server.herokuapp.com)
