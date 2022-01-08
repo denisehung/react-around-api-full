@@ -1,5 +1,7 @@
 // export const BASE_URL = 'https://register.nomoreparties.co';
-export const BASE_URL = (process.env.NODE_ENV === "production" ? "https://api.dhung.students.nomoreparties.site" : "http://localhost:3000");
+/* export const BASE_URL = (process.env.NODE_ENV === "production" ? "https://api.dhung.students.nomoreparties.site" : "http://localhost:3000"); */
+
+export const BASE_URL = (process.env.NODE_ENV === "production" ? "https://react-around-server.herokuapp.com" : "http://localhost:3000");
 
 function checkResponse(res){
   if (res.ok) {

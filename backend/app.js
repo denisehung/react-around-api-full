@@ -15,12 +15,12 @@ const validateUrl = require('./utils/validateUrl');
 require('dotenv').config();
 
 // listen to port 3000
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, MONGO_URL } = process.env;
 const app = express();
 
 // mongoose.connect('mongodb://localhost:27017/aroundb');
 
-mongoose.connect('MONGO_URL');
+mongoose.connect(MONGO_URL);
 
 app.use(cors());
 app.options('*', cors()); // enable requests for all routes
