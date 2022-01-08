@@ -2,9 +2,9 @@
 
 ## Intro
 
-This project is part of the Practicum Web Development bootcamp (sprint 12 to 15). It's an interactive React application called 'Around The U.S.' where users can add, remove and like image cards. The frontend is connected to a self-built API that handles these functionalities, as well as user registration and authorization.
+This project is part of the Practicum Web Development bootcamp (sprint 12 to 15). It's an interactive React application called 'Around The U.S.' where users can add, remove and like image cards. The front-end is connected to a self-built API server that handles these functionalities, as well as user registration and authorization.
 
-The page is hosted on **Google Cloud**.
+The application is hosted on **Heroku** (back-end) and **Netlify** (front-end).
 
 ## [**View live project**](https://denisehung.github.io/react-around-api-full/) :rocket:
 
